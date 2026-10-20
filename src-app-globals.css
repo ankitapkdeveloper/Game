@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --bg-card: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+}
+
+.dark {
+  --bg-primary: #0f0f23;
+  --bg-secondary: #1a1a2e;
+  --bg-card: #16213e;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --border-color: #374151;
+}
+
+* {
+  transition: background-color 0.3s ease, color 0.2s ease, border-color 0.3s ease;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4f46e5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+
+/* Game board styles */
+@layer components {
+  .game-card {
+    @apply relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700
+      bg-white dark:bg-arena-card p-6 shadow-lg
+      hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer;
+  }
+
+  .game-card::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-br from-primary-500/10 to-arena-accent/10 opacity-0
+      transition-opacity duration-300;
+  }
+
+  .game-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-primary-600 px-6 py-3
+      text-white font-semibold shadow-lg shadow-primary-600/30
+      hover:bg-primary-700 hover:shadow-primary-700/40
+      active:scale-95 transition-all duration-200
+      disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl px-6 py-3
+      font-semibold border-2 border-primary-600 text-primary-600
+      dark:border-primary-400 dark:text-primary-400
+      hover:bg-primary-600 hover:text-white dark:hover:bg-primary-500
+      active:scale-95 transition-all duration-200;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center rounded-xl bg-red-600 px-6 py-3
+      text-white font-semibold shadow-lg shadow-red-600/30
+      hover:bg-red-700 active:scale-95 transition-all duration-200;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border border-gray-300 dark:border-gray-600
+      bg-white dark:bg-gray-800 px-4 py-3
+      text-gray-900 dark:text-gray-100
+      placeholder:text-gray-400 dark:placeholder:text-gray-500
+      focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent
+      transition-all duration-200;
+  }
+
+  .card {
+    @apply rounded-2xl border border-gray-200 dark:border-gray-700
+      bg-white dark:bg-arena-card p-6 shadow-lg;
+  }
+
+  .page-container {
+    @apply min-h-screen bg-gray-50 dark:bg-arena-dark;
+  }
+
+  .badge-gold {
+    @apply inline-flex items-center gap-1 rounded-full bg-yellow-100 dark:bg-yellow-900/30
+      text-yellow-800 dark:text-yellow-400 px-3 py-1 text-sm font-semibold;
+  }
+
+  .badge-silver {
+    @apply inline-flex items-center gap-1 rounded-full bg-gray-100 dark:bg-gray-700
+      text-gray-700 dark:text-gray-300 px-3 py-1 text-sm font-semibold;
+  }
+
+  .badge-bronze {
+    @apply inline-flex items-center gap-1 rounded-full bg-orange-100 dark:bg-orange-900/30
+      text-orange-800 dark:text-orange-400 px-3 py-1 text-sm font-semibold;
+  }
+}
+
+/* Animations for games */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(99, 102, 241, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.8); }
+}
+
+.animate-shake { animation: shake 0.5s ease-in-out; }
+.animate-pop { animation: pop 0.3s ease-in-out; }
+.animate-glow { animation: glow 2s infinite; }
